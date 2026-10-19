@@ -3,7 +3,7 @@ from __future__ import annotations
 from collections.abc import Callable
 
 from PySide6.QtCore import Qt
-from PySide6.QtWidgets import QDialog, QDialogButtonBox, QLabel, QVBoxLayout, QWidget
+from PySide6.QtWidgets import QDialog, QDialogButtonBox, QLabel, QScrollArea, QVBoxLayout, QWidget
 
 INSTRUCTIONS = {
     "recognition": (
@@ -13,8 +13,13 @@ INSTRUCTIONS = {
         "<li>Pick an answer. The game shows the correct answer and your points.</li>"
         "<li>Press <b>Next</b> to continue.</li></ol>"
         "<p>Use <b>Skip round</b> if an image is hard to read. "
-        "With <b>Timed rounds</b> enabled, answer before the timer runs out. "
+        "If <b>Timed rounds</b> is enabled, each round has a time limit; "
+        "try to finish before the timer reaches 0. "
         "Press <b>Stop game</b> to finish early.</p>"
+        "<p><b>Scoring</b></p><ul>"
+        "<li>Correct answer: 100 points on Easy, 200 on Standard, 300 on Hard.</li>"
+        "<li>With timed rounds, faster answers earn up to 25 bonus points.</li>"
+        "<li>Wrong answers and skipped rounds earn 0 points.</li></ul>"
     ),
     "imitation": (
         "<h2>Imitation</h2>"
@@ -23,16 +28,26 @@ INSTRUCTIONS = {
         "<li>Press <b>Start game</b> and face the camera. "
         "The round starts when one clear face is visible.</li>"
         "<li>Follow the target and keep it steady until the green hold bar fills.</li>"
-        "<li>Turn off <b>Timed rounds</b> to practise without a countdown or time bonus.</li>"
+        "<li>If <b>Timed rounds</b> is enabled, each round has a time limit; "
+        "try to finish before the timer reaches 0.</li>"
         "<li>Use <b>Skip round</b> to move on, or <b>Stop game</b> to end "
         "the game and turn off the camera.</li></ol>"
-        "<p><b>Movement hints are optional.</b> Press <b>Setup hint</b> in the "
-        "panel beside the camera, then relax your face for two seconds. "
-        "The hints suggest movements such as raising your eyebrows or opening your mouth.</p>"
+        "<p><b>Movement hints</b> are tips shown beside the camera while you play, "
+        "such as &ldquo;raise your eyebrows&rdquo; or &ldquo;open your mouth a little.&rdquo;</p>"
+        "<p>To turn them on, click <b>Setup hint</b> beside the camera. "
+        "Look straight at the camera and keep your face relaxed and still for about two seconds. "
+        "When setup is done, the button turns green with a tick and the camera switches off. "
+        "Start a game to see the tips. You can play without setting them up.</p>"
         "<p>Enable <b>Face guide</b> beside <b>Expression</b> for a cyan outline and gold "
         "movement arrows over your face. Run <b>Setup hint</b> first. "
         "The guide suggests approximate movements and does not change scoring.</p>"
-        "<p>Scoring follows the app's recognition rules. Tracking can be wrong.</p>"
+        "<p><b>Scoring</b></p><ul>"
+        "<li>Fill the green hold bar to earn 100 points on Easy, 200 on Standard, "
+        "or 300 on Hard.</li>"
+        "<li>The hold bar resets if the app stops recognizing the target expression "
+        "or loses track of your face.</li>"
+        "<li>With timed rounds, finishing faster earns up to 25 bonus points.</li>"
+        "<li>Skipped rounds earn 0 points.</li></ul>"
     ),
 }
 
@@ -56,15 +71,16 @@ class GameInstructions(QDialog):
         text = QLabel(INSTRUCTIONS[mode])
         text.setWordWrap(True)
         text.setStyleSheet("font-size:14px;")
-        pause_note = QLabel("The round pauses while these instructions are open.")
-        pause_note.setWordWrap(True)
+        text.setAlignment(Qt.AlignmentFlag.AlignTop)
+        scroll = QScrollArea()
+        scroll.setWidgetResizable(True)
+        scroll.setWidget(text)
         buttons = QDialogButtonBox(QDialogButtonBox.StandardButton.Ok)
         buttons.button(QDialogButtonBox.StandardButton.Ok).setText("Got it")
         buttons.accepted.connect(self.accept)
         layout = QVBoxLayout(self)
         layout.setContentsMargins(20, 16, 20, 16)
-        layout.addWidget(text)
-        layout.addWidget(pause_note)
+        layout.addWidget(scroll)
         layout.addWidget(buttons)
         self.finished.connect(self.resume_game)
 

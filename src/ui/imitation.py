@@ -44,7 +44,10 @@ from ui.images import show_rgb
 from ui.instructions import GameInstructions
 
 HINT_SETUP_TEXT = "Setup hint"
-HINT_SETUP_HELP = "Set up optional movement hints."
+HINT_SETUP_HELP = (
+    "Get tips such as 'raise your eyebrows' while you play. "
+    "Click here, then look at the camera with your face relaxed and still for about two seconds."
+)
 
 
 class ImitationWidget(QWidget):
