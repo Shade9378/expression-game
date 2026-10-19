@@ -1,0 +1,33 @@
+[build-system]
+requires = ["setuptools==75.8.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "local-fer"
+version = "0.1.0"
+description = "Local facial expression classification, Spring 2025 experiment"
+requires-python = ">=3.10,<3.13"
+dynamic = ["dependencies"]
+
+[tool.setuptools.dynamic]
+dependencies = {file = ["requirements.in"]}
+
+[tool.setuptools]
+py-modules = ["cli", "constants"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[project.scripts]
+fer = "cli:main"
+
+[tool.pytest.ini_options]
+pythonpath = ["src", "notes/tests"]
+testpaths = ["notes/tests"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]

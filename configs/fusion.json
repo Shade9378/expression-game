@@ -1,0 +1,16 @@
+{
+  "seed": 42,
+  "device": "cuda:0",
+  "epochs": 20,
+  "patience": 5,
+  "learning_rate": 0.001,
+  "extraction_workers": 4,
+  "manifest": "results/data/manifest.json",
+  "image_cache": "results/data/decoded.npz",
+  "asset": "results/models/face_landmarker_v1.task",
+  "encoder": "results/runs/resnet18_seed42/deployment.pt",
+  "feature_cache": "results/features/geometry.npz",
+  "training_output": "results/fusion",
+  "report_output": "results/fusion",
+  "modes": ["image_only", "landmark_only", "geometry_blendshapes", "fused_landmarks", "fused"]
+}

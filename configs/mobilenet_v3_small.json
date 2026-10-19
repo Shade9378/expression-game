@@ -1,0 +1,16 @@
+{
+  "model": "mobilenet_v3_small",
+  "seed": 42,
+  "image_size": 112,
+  "batch_size": 128,
+  "epochs": 8,
+  "patience": 3,
+  "min_delta": 0.001,
+  "learning_rate": 0.0003,
+  "weight_decay": 0.01,
+  "cpu_threads": 4,
+  "device": "cuda:0",
+  "manifest": "results/data/manifest.json",
+  "cache": "results/data/decoded.npz",
+  "output": "results/runs/mobilenet_v3_small_seed42"
+}

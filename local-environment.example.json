@@ -1,0 +1,4 @@
+{
+  "python": "C:\\path\\to\\historical-environment\\Scripts\\python.exe",
+  "tracking_dir": "C:\\path\\to\\local-mlruns"
+}

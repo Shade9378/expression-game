@@ -1,0 +1,17 @@
+MediaPipe Face Landmarker v1
+
+Copyright The MediaPipe Authors / Google LLC.
+The bundled MediaPipe model is unmodified and licensed under Apache-2.0.
+The license is included as mediapipe-LICENSE.txt.
+
+Model source:
+https://storage.googleapis.com/mediapipe-models/face_landmarker/face_landmarker/float16/1/face_landmarker.task
+
+Model cards and license notices:
+https://storage.googleapis.com/mediapipe-assets/MediaPipe%20BlazeFace%20Model%20Card%20(Short%20Range).pdf
+https://storage.googleapis.com/mediapipe-assets/Model%20Card%20MediaPipe%20Face%20Mesh%20V2.pdf
+https://storage.googleapis.com/mediapipe-assets/Model%20Card%20Blendshape%20V2.pdf
+
+The project's ResNet18 classifier was fine-tuned from torchvision ImageNet weights
+on FER2013. No FER2013 images, labels, or reference catalog are distributed in this ZIP.
+The MediaPipe license applies to the third-party asset, not to the project's FER weights.
